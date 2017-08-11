@@ -53,7 +53,7 @@ c89b918dcef3        aupe/webserver-test-v1   "nginx -g 'daemon ..."   5 seconds 
 
 Q2. Create multiple instances of the application using docker compose.
 
-Create the docker-compose.yml like below 
+use the docker-compose file in this repo. 
 
 haproxy:
   
@@ -82,6 +82,7 @@ Placed one Haproxy image as Load balencer which is already available in Dockerhu
 Scale using the command >> docker-compose up -d --scale net=5
 
 docker ps 
+
 CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS                                     NAMES
 53a5d689d776        tutum/haproxy            "python /haproxy/m..."   7 seconds ago       Up 5 seconds        443/tcp, 1936/tcp, 0.0.0.0:5004->80/tcp   onepage1 haproxy
 d5cdae235744        aupe/webserver-test-v1   "nginx -g 'daemon ..."   10 seconds ago      Up 6 seconds        0.0.0.0:32795->80/tcp                     onepage1_net_1
