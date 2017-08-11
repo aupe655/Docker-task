@@ -9,6 +9,7 @@ Steps.
 Download one-page1 directory and create a Docker file like below & import a ngnix image and copy the one-page directory to default nginix document root
 
 FROM nginx
+
 COPY . /usr/share/nginx/
 
 -------------------------------------------------------------------
