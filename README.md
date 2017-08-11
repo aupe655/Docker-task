@@ -56,37 +56,37 @@ Q2. Create multiple instances of the application using docker compose.
 Create the docker-compose.yml like below 
 
 haproxy:
+  
   image: tutum/haproxy
+  
   links:
+  
     - net
+  
   ports:
+    
     - "5004:80"
+
 net:
+
   image: aupe/webserver-test-v1
+
   ports:
+
     - "80"
+
 ---------------------------------------------------------------------------------
 
 Placed one Haproxy image as Load balencer which is already available in Dockerhub.
 
 Scale using the command >> docker-compose up -d --scale net=5
 
-Dinkan one-page1 # docker-compose up -d --scale net=3
-Stopping and removing onepage1_net_4 ... done
-Stopping and removing onepage1_net_5 ... done
-Recreating onepage1_net_1 ... 
-Recreating onepage1_net_2 ... 
-Recreating onepage1_net_3 ... 
-Recreating onepage1_net_1 ... done
-Recreating onepage1_net_2 ... done
-Recreating onepage1_net_3 ... done
-Recreating onepage1_haproxy_1 ... 
-Recreating onepage1_haproxy_1 ... done
-Dinkan one-page1 # 
-Dinkan one-page1 # docker ps 
+docker ps 
 CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS                                     NAMES
-53a5d689d776        tutum/haproxy            "python /haproxy/m..."   7 seconds ago       Up 5 seconds        443/tcp, 1936/tcp, 0.0.0.0:5004->80/tcp   onepage1_haproxy_1
+53a5d689d776        tutum/haproxy            "python /haproxy/m..."   7 seconds ago       Up 5 seconds        443/tcp, 1936/tcp, 0.0.0.0:5004->80/tcp   onepage1 haproxy
 d5cdae235744        aupe/webserver-test-v1   "nginx -g 'daemon ..."   10 seconds ago      Up 6 seconds        0.0.0.0:32795->80/tcp                     onepage1_net_1
 f4b327acde5c        aupe/webserver-test-v1   "nginx -g 'daemon ..."   10 seconds ago      Up 7 seconds        0.0.0.0:32794->80/tcp                     onepage1_net_3
 aecfa741b362        aupe/webserver-test-v1   "nginx -g 'daemon ..."   10 seconds ago      Up 7 seconds        0.0.0.0:32793->80/tcp                     onepage1_net_2
+
+
 ---------------------------------------------------------------------------------------------
