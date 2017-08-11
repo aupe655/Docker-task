@@ -1,0 +1,10 @@
+haproxy:
+  image: tutum/haproxy
+  links:
+   – net
+  ports:
+   – [“5000:80”]
+net:
+  image: aupe655/webserver-test-v4
+  ports:
+   – [“80”]
