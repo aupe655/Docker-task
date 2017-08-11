@@ -102,6 +102,6 @@ docker service update --update-delay=10s --update-parallelism=1 --image aupe/web
 
 Since we have Load balencer is already in place it will redirect the requestes to both v1 and v2 containers resulting in a different ouput based on the update delay but there won't be any downtime.
 
-We can also scale the while updating the service with replica option >> docker service update --replicas=6 web-app
+We can also scale while updating the service with replica option >> docker service update --replicas=6 web-app
 
 ---------------------------------------------------------------------------------------------------------
