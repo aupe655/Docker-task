@@ -1,6 +1,6 @@
 # Docker-task
 
-Q1.Build a sample web application and run it inside a docker container.
+Scinario-1.Build a sample web application and run it inside a docker container.
 
 For this need a webserver with sample web-application, I have downloaded a sample web-page(one-page1) template to run in a nginix container
 
@@ -51,7 +51,7 @@ c89b918dcef3        aupe/webserver-test-v1   "nginx -g 'daemon ..."   5 seconds 
 
 ================================================================================
 
-Q2. Create multiple instances of the application using docker compose.
+Scinario-2. Create multiple instances of the application using docker compose.
 
 Create the docker-compose.yml like below 
 
@@ -77,16 +77,31 @@ net:
 
 ---------------------------------------------------------------------------------
 
+
 Placed one Haproxy image as Load balencer which is already available in Dockerhub.
 
 Scale using the command >> docker-compose up -d --scale net=5
 
-docker ps 
-CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS                                     NAMES
-53a5d689d776        tutum/haproxy            "python /haproxy/m..."   7 seconds ago       Up 5 seconds        443/tcp, 1936/tcp, 0.0.0.0:5004->80/tcp   onepage1 haproxy
-d5cdae235744        aupe/webserver-test-v1   "nginx -g 'daemon ..."   10 seconds ago      Up 6 seconds        0.0.0.0:32795->80/tcp                     onepage1_net_1
-f4b327acde5c        aupe/webserver-test-v1   "nginx -g 'daemon ..."   10 seconds ago      Up 7 seconds        0.0.0.0:32794->80/tcp                     onepage1_net_3
-aecfa741b362        aupe/webserver-test-v1   "nginx -g 'daemon ..."   10 seconds ago      Up 7 seconds        0.0.0.0:32793->80/tcp                     onepage1_net_2
-
-
 ---------------------------------------------------------------------------------------------
+
+Scinario-3. An option to deploy changes on all instances without any downtime overall. (a script would do)
+
+This can be done by Docker rolling update option with delay & parallelism switches.
+
+First we need to create a service using the image
+
+ docker swarm init && docker service create --name web-app aupe/webserver-test-v1 
+
+ we can inspect the service by using the command >> docker service inspect --pretty web-app
+
+Suppose there is change in the web-application and we have built a v2 image of the same, ie >> aupe/webserver-test-v2
+
+We can deploy using the below command 
+
+docker service update --update-delay=10s --update-parallelism=1 --image aupe/webserver-test-v2 web-app
+
+Since we have Load balencer is already in place it will redirect the requestes to both v1 and v2 containers resulting in a different ouput based on the update delay but there won't be any downtime.
+
+We can also scale the while updating the service with replica option >> docker service update --replicas=6 web-app
+
+---------------------------------------------------------------------------------------------------------
