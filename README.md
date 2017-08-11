@@ -53,7 +53,7 @@ c89b918dcef3        aupe/webserver-test-v1   "nginx -g 'daemon ..."   5 seconds 
 
 Scinario-2. Create multiple instances of the application using docker compose.
 
-Create the docker-compose.yml like below 
+use the docker-compose file in this repo. 
 
 haproxy:
   
@@ -82,7 +82,7 @@ Placed one Haproxy image as Load balencer which is already available in Dockerhu
 
 Scale using the command >> docker-compose up -d --scale net=5
 
----------------------------------------------------------------------------------------------
+--------------------------------------------------------------------
 
 Scinario-3. An option to deploy changes on all instances without any downtime overall. (a script would do)
 
